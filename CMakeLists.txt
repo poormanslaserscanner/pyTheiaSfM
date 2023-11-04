@@ -78,11 +78,12 @@ endif (EXISTS ${LOCAL_GIT_DIRECTORY})
 # Additional cmake find modules
 # ==============================================================================
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
-
+message("!!!PYTHON_BUILD: '${PYTHON_BUILD}'")
 option(BUILD_TESTING "Enable testing" OFF)
 option(BUILD_DOCUMENTATION "Build html User's Guide" OFF)
 option(PYTHON_BUILD "If we are building python bindings" OFF)
 option(WITH_ROCKSDB "If rcocksdb should be included as a feature database" OFF)
+message("!!!PYTHON_BUILD: '${PYTHON_BUILD}'")
 
 if (PYTHON_BUILD)
     add_definitions(-DPYTHON_BUILD)
@@ -262,6 +263,8 @@ optimizetheiacompilerflags()
 add_subdirectory(src/theia)
 
 if (NOT PYTHON_BUILD)
+  message("!!!NO PYTHON_BUILD")
+
   # in case of python build we do not add application folder
   add_subdirectory(applications)
 endif (NOT PYTHON_BUILD)
@@ -352,5 +355,7 @@ install(FILES "${CMAKE_CURRENT_BINARY_DIR}/TheiaConfig.cmake"
 
 # python build
 if (PYTHON_BUILD)
+   message("!!!YES PYTHON_BUILD")
+
   add_subdirectory(src/pytheia)
 endif (PYTHON_BUILD)
